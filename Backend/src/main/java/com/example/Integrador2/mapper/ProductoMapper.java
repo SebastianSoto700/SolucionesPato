@@ -12,10 +12,10 @@ import org.mapstruct.MappingTarget;
 public interface ProductoMapper {
 
 
-    @Mapping(source = "categorias.nombre" , target = "categorias")
+    @Mapping(source = "categoria.nombre" , target = "categoria")
     ProductoGiovanniDto toclienteDto(Producto producto);
 
-    @Mapping(source = "categorias.nombre", target = "categorias")
+    @Mapping(source = "categoria.nombre", target = "categoria")
     ProductoAdminDto todtoAdmin(Producto producto);
 
     @Mapping(source = "categoriaId", target = "categoria.id")

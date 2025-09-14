@@ -3,8 +3,8 @@ package com.example.Integrador2.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "productos")
@@ -18,13 +18,13 @@ public class Producto {
     private String nombre;
 
     @Column(nullable = false)
-    private String descrpcion;
+    private String descripcion;
 
     @Column(nullable = false)
     private Integer stock;
 
     @Column(nullable = false)
-    private double precio;
+    private Double precio;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
@@ -37,6 +37,18 @@ public class Producto {
     private LocalDateTime fechaCreacion = LocalDateTime.now();
 
     private String imagen;
+
+    public Producto(Integer id, String nombre, String descripcion, Integer stock, Double precio, Categoria categoria, Boolean estado, LocalDateTime fechaCreacion, String imagen) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.stock = stock;
+        this.precio = precio;
+        this.categoria = categoria;
+        this.estado = estado;
+        this.fechaCreacion = fechaCreacion;
+        this.imagen = imagen;
+    }
 
     public Integer getId() {
         return id;
@@ -54,12 +66,12 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public String getDescrpcion() {
-        return descrpcion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescrpcion(String descrpcion) {
-        this.descrpcion = descrpcion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Integer getStock() {
@@ -70,11 +82,11 @@ public class Producto {
         this.stock = stock;
     }
 
-    public double getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
@@ -113,17 +125,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(Integer id, String nombre, String descrpcion, Integer stock, Boolean estado, Categoria categoria, double precio, LocalDateTime fechaCreacion, String imagen) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descrpcion = descrpcion;
-        this.stock = stock;
-        this.estado = estado;
-        this.categoria = categoria;
-        this.precio = precio;
-        this.fechaCreacion = fechaCreacion;
-        this.imagen = imagen;
-    }
+
 
     public void eliminar() {
         this.estado = false;
