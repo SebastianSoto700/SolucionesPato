@@ -37,7 +37,7 @@ public class ProductoService {
     public List<ProductoGiovanniDto> listarProductoGiovanni() {
         return productoRepository.findAll()
                 .stream()
-                .filter(Producto::getEstado)
+                .filter(Producto::getEstado) //solo los que estan activo
                 .map(productoMapper::toclienteDto)
                 .toList();
     }
