@@ -1,0 +1,14 @@
+import { Routes } from '@angular/router';
+import { HomeComponent } from './landing/pages/home/home.component';
+import { QuienesSomosComponent } from './landing/pages/quienes-somos/quienes-somos.component';
+import { ServiciosComponent } from './landing/pages/servicios/servicios.component';
+import { CotizacionesComponent } from './landing/pages/cotizaciones/cotizaciones.component';
+
+export const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: 'home', component: HomeComponent},
+  { path: 'quienes-somos', component: QuienesSomosComponent },
+  { path: 'servicios', component: ServiciosComponent },
+  { path: 'cotizaciones', component: CotizacionesComponent },
+  { path: '**', redirectTo: 'home'}
+];
