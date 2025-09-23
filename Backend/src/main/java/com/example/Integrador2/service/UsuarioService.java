@@ -4,6 +4,7 @@ import com.example.Integrador2.dto.UsuarioUpdateDto;
 import com.example.Integrador2.model.Usuario;
 import com.example.Integrador2.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,13 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
     public Usuario crearUsuario(Usuario usuario){
+        String contrasenaEncriptada = passwordEncoder.encode(usuario.getContrasena());
+        usuario.setContrasena(contrasenaEncriptada);
         usuario.setFechaCreacion(java.time.LocalDateTime.now());
         return usuarioRepository.save(usuario);
     }
@@ -29,6 +36,10 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(id)  // <-- cambiar aquí
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         usuario.actualizar(usuartiodto);
+        if (usuartiodto.getContrasena() != null && !usuartiodto.getContrasena().isEmpty()) {
+            String nuevaContrasenaEncriptada = passwordEncoder.encode(usuartiodto.getContrasena());
+            usuario.setContrasena(nuevaContrasenaEncriptada);
+        }
         return usuario;
     }
 

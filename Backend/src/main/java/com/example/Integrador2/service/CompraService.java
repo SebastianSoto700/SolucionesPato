@@ -41,9 +41,8 @@ public class CompraService {
 
     @Transactional
     public CompraAdminDto crearCompra(CompraCreateDto dto){
-        System.out.println(dto.precio());
+
         Compra compra = compraMapper.toEntity(dto);
-        System.out.println(compra.getPrecio());
 
 
         Producto producto = productoRepository.findById(dto.productoId())
