@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_USER')")
 @RestController
 @RequestMapping("/Clientes")
 public class ClienteController {

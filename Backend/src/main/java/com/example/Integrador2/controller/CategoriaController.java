@@ -24,7 +24,6 @@ public class CategoriaController {
 
 
     @GetMapping
-    @PreAuthorize("hasAuthority('SCOPE_USER')")
     public List<Categoria> listar(Authentication authentication){
         return  categoriaService.listarCategoria();
     }

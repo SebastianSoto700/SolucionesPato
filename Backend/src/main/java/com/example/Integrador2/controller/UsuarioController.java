@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
+@PreAuthorize("hasAuthority('SCOPE_ADMIN')")
 public class UsuarioController {
 
 

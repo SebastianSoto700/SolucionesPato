@@ -4,10 +4,12 @@ import com.example.Integrador2.dto.ProveedorUpdateDto;
 import com.example.Integrador2.model.Proveedor;
 import com.example.Integrador2.service.ProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_USER')")
 @RestController
 @RequestMapping("/proveedor")
 public class ProveedorCategoria {
