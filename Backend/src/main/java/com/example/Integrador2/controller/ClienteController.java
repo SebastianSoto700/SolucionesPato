@@ -19,7 +19,7 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_USER')")
     @GetMapping
     public ResponseEntity<List<ClienteAdminDto>> listarClientes (){
         return ResponseEntity.ok(clienteService.listarCliente());

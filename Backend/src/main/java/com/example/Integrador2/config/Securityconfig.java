@@ -21,7 +21,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -30,27 +32,26 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@RequiredArgsConstructor
+
 @EnableWebSecurity
 @Configuration
 @EnableMethodSecurity
 public class Securityconfig {
 
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
 
+    private final RsaKeyCon rsaKeyCon;
+    private final AuthenticationProvider authenticationProvider;
 
-    private RsaKeyCon rsaKeyCon;
-
-    public Securityconfig(RsaKeyCon rsaKeyCon) {
+    // ==========================================================
+    // CONSTRUCTOR MANUAL
+    // ==========================================================
+    public Securityconfig(RsaKeyCon rsaKeyCon, AuthenticationProvider authenticationProvider) {
         this.rsaKeyCon = rsaKeyCon;
+        this.authenticationProvider = authenticationProvider;
     }
 
-    //checamos cada una de las contraseñas
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
@@ -65,7 +66,8 @@ public class Securityconfig {
                         .jwt(Customizer.withDefaults())
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider())
+                //es mas nueva se encarga de checar unicamente el token
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
@@ -86,19 +88,7 @@ public class Securityconfig {
         return new NimbusJwtEncoder(jwkSource);
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
 
-
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(customUserDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
 
 
 
