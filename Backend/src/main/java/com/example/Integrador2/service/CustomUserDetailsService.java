@@ -34,13 +34,21 @@ public class CustomUserDetailsService implements UserDetailsService {
                     System.out.println("--- Usuario NO encontrado en la BD: " + username + " ---");
                     return new UsernameNotFoundException("No se ha encontrado a este usuario"); // Es mejor usar esta excepción
                 });
+        String contrasenaDesdeBD = usuarioEncontrado.getContrasena();
+        String contrasenaLimpia = contrasenaDesdeBD.trim();
 
         // ESTA PARTE SOLO SE EJECUTA SI SÍ SE ENCUENTRA EL USUARIO
         System.out.println("--- Usuario ENCONTRADO en la BD: " + usuarioEncontrado.getCorreo() + " ---");
+        System.out.println(">>> Contraseña desde la BD: [" + contrasenaLimpia.length() + "]");
+
 
         return new User(
                 usuarioEncontrado.getCorreo(),
-                usuarioEncontrado.getContrasena(),
+                contrasenaLimpia,
+                usuarioEncontrado.isEstado(),
+                true,
+                true,
+                true,// <-- ESTO ES LO NUEVO: le dice a Spring si el usuario está habilitado
                 Collections.singleton(new SimpleGrantedAuthority(usuarioEncontrado.getRol()))
         );
     }
