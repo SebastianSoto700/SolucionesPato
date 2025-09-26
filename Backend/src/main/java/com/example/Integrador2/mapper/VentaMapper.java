@@ -10,13 +10,13 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface VentaMapper {
 
-    @Mapping(source = "cliente.nombre", target = "nombreCliente")
-    @Mapping(source = "usuario.nombre", target = "nombreVendedor")
-    @Mapping(source = "fechaVenta", target = "fechaVenta") // Coincide, pero es bueno ser explícito
-    @Mapping(source = "detalles", target = "detalles") // Mapea la lista de detalles anidada
-    VentaResponseDTO toVentaResponseDTO(Venta venta);
-
-    @Mapping(source = "producto.nombre", target = "nombreProducto")
-    DetalleVentaResponseDTO toDetalleVentaResponseDTO(DetalleVenta detalleVenta);
+//    @Mapping(source = "cliente.nombre", target = "nombreCliente")
+//    @Mapping(source = "usuario.nombre", target = "nombreVendedor")
+//    @Mapping(source = "fechaVenta", target = "fechaVenta") // Coincide, pero es bueno ser explícito
+//    @Mapping(source = "detalles", target = "detalles") // Mapea la lista de detalles anidada
+//    VentaResponseDTO toVentaResponseDTO(Venta venta);
+//
+//    @Mapping(source = "producto.nombre", target = "nombreProducto")
+//    DetalleVentaResponseDTO toDetalleVentaResponseDTO(DetalleVenta detalleVenta);
 
 }

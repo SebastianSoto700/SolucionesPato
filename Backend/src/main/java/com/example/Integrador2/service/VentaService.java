@@ -1,8 +1,7 @@
 package com.example.Integrador2.service;
 
 
-import com.example.Integrador2.dto.VentaAdminDto;
-import com.example.Integrador2.dto.VentaCreateDto;
+
 import com.example.Integrador2.mapper.VentaMapper;
 import com.example.Integrador2.model.Cliente;
 import com.example.Integrador2.model.Usuario;
