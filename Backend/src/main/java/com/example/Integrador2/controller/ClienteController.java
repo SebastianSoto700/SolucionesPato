@@ -6,10 +6,13 @@ import com.example.Integrador2.model.Cliente;
 import com.example.Integrador2.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_USER')")
 @RestController
 @RequestMapping("/Clientes")
 public class ClienteController {
@@ -17,6 +20,7 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_USER')")
     @GetMapping
     public ResponseEntity<List<ClienteAdminDto>> listarClientes (){
         return ResponseEntity.ok(clienteService.listarCliente());

@@ -7,6 +7,7 @@ import com.example.Integrador2.dto.ProductoUpdateDto;
 import com.example.Integrador2.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
+@PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_USER')")
 @RestController
 @RequestMapping("/Productos")
 public class ProductoController {
