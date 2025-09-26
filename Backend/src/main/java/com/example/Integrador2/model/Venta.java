@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ventas")
@@ -14,12 +16,12 @@ public class Venta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
-    @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
     private BigDecimal total;
@@ -29,18 +31,21 @@ public class Venta {
     @Column(name = "fecha_venta", nullable = false, updatable = false)
     private LocalDateTime fechaCreacion = LocalDateTime.now();
 
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DetalleVenta> detalles = new ArrayList<>();
+
     public Venta() {
     }
 
-    public Venta(Integer id, Cliente cliente, Usuario usuario, BigDecimal total, boolean estado, LocalDateTime fechaCreacion) {
+    public Venta(Integer id, Cliente cliente, Usuario usuario, BigDecimal total, boolean estado, LocalDateTime fechaCreacion, List<DetalleVenta> detalles) {
         this.id = id;
         this.cliente = cliente;
         this.usuario = usuario;
         this.total = total;
         this.estado = estado;
         this.fechaCreacion = fechaCreacion;
+        this.detalles = detalles;
     }
-
 
     public Integer getId() {
         return id;
@@ -88,5 +93,13 @@ public class Venta {
 
     public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+
+    public List<DetalleVenta> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleVenta> detalles) {
+        this.detalles = detalles;
     }
 }

@@ -1,7 +1,8 @@
 package com.example.Integrador2.mapper;
 
-import com.example.Integrador2.dto.VentaAdminDto;
-import com.example.Integrador2.dto.VentaCreateDto;
+import com.example.Integrador2.dto.DetalleVentaResponseDTO;
+import com.example.Integrador2.dto.VentaResponseDTO;
+import com.example.Integrador2.model.DetalleVenta;
 import com.example.Integrador2.model.Venta;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -9,14 +10,13 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface VentaMapper {
 
-    @Mapping(source = "usuario.nombre", target = "usuario")
-    @Mapping(source = "cliente.nombre", target = "cliente")
-    VentaAdminDto adminDto (Venta venta);
+    @Mapping(source = "cliente.nombre", target = "nombreCliente")
+    @Mapping(source = "usuario.nombre", target = "nombreVendedor")
+    @Mapping(source = "fechaVenta", target = "fechaVenta") // Coincide, pero es bueno ser explícito
+    @Mapping(source = "detalles", target = "detalles") // Mapea la lista de detalles anidada
+    VentaResponseDTO toVentaResponseDTO(Venta venta);
 
-    @Mapping(source = "usuarioId" , target = "usuario.id")
-    @Mapping(source = "clienteId" , target = "cliente.id")
-    @Mapping(target = "fechaCreacion", ignore = true)
-    @Mapping(target = "estado", ignore = true)
-    Venta toEntity (VentaCreateDto ventaCreateDto);
+    @Mapping(source = "producto.nombre", target = "nombreProducto")
+    DetalleVentaResponseDTO toDetalleVentaResponseDTO(DetalleVenta detalleVenta);
 
 }
