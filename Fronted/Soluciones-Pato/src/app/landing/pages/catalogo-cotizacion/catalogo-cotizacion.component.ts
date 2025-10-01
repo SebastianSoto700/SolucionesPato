@@ -39,10 +39,9 @@ export class CatalogoCotizacionComponent implements OnInit {
   }
 
   enviarWhatsApp() {
-    const numeroEmpresa = '51940356043';
-    const texto = `Hola, me interesa cotizar el producto/servicio: ${this.productoSeleccionado.nombre}.
+    const numeroEmpresa = '51956650831';
+    const texto = `Hola soy ${this.nombre}, me interesa cotizar el producto: ${this.productoSeleccionado.nombre}.
 Mis datos:
-- Nombre: ${this.nombre}
 - Email: ${this.email}
 - Teléfono: ${this.telefono}
 - Mensaje: ${this.mensaje}`;

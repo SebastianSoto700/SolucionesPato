@@ -19,7 +19,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
-@PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_USER')")
 @RestController
 @RequestMapping("/Productos")
 public class ProductoController {

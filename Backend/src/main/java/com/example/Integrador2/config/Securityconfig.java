@@ -59,7 +59,8 @@ public class Securityconfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/token/**").permitAll()
-                        .requestMatchers("/Productos/clientes").permitAll()
+                        .requestMatchers("/Productos/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 //estalecemos el mecanismo de autenticacion con jwt
