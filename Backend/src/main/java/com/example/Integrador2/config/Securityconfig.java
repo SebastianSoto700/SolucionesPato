@@ -60,6 +60,9 @@ public class Securityconfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/token/**").permitAll()
                         .requestMatchers("/Productos/clientes").permitAll()
+                        .requestMatchers("/swagger-ui.html").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 //estalecemos el mecanismo de autenticacion con jwt
