@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 @EnableConfigurationProperties(RsaKeyCon.class)
-public class aIntegrador2Application {
+public class 	aIntegrador2Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(aIntegrador2Application.class, args);
