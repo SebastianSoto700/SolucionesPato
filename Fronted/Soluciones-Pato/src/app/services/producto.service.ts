@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ProductoService {
@@ -9,6 +9,16 @@ export class ProductoService {
   constructor(private http: HttpClient) {}
 
   getProductos(): Observable<any[]> {
-    return this.http.get<any[]>(this.baseUrl);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+
+    return this.http.get<any[]>(this.baseUrl, { headers }).pipe(
+      catchError(error => {
+        console.error('Error en ProductoService:', error);
+        return throwError(() => error);
+      })
+    );
   }
 }
